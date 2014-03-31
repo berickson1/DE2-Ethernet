@@ -38,14 +38,14 @@ impact_impact.xwbt
 /Quartus/.qsys_edit
 /Quartus/nios_system*
 /Quartus/output_files
-/Quartus/BioLock.jdi
+/Quartus/*.jdi
 
 #Ignore Software artifacts
 *.elf
-/Software/BioLock/.settings/
-/Software/BioLock/obj/
-/Software/BioLock/BioLock.map
-/Software/BioLock/BioLock.objdump
+/Software/*/.settings/
+/Software/*/obj/
+/Software/*/*.map
+/Software/*/*.objdump
 bin/
 gen/
 
@@ -53,7 +53,7 @@ gen/
 .metadata/
 
 #Ignore bsp project
-/Software/BioLock_bsp/*
+/Software/*_bsp/*
 /Software/.metadata/*
 
 #Ignore Mac DS_Store
