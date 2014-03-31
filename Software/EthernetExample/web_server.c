@@ -35,7 +35,9 @@
 #include <errno.h>
 #include <ctype.h>
 #include "system.h"
+#if defined(SEVEN_SEG_PIO_NAME) || defined(LED_PIO_BASE)
 #include "altera_avalon_pio_regs.h"
+#endif
 #include <unistd.h>
 
 /* Web Server definitions */
@@ -186,7 +188,9 @@ void WSInitialTask(void* pdata)
  */
 
 //static void board_control_init();
+#ifdef LED_PIO_BASE
 void LED_task(void* pdata);
+#endif
 void SSD_task(void* pdata);
 #ifdef SEVEN_SEG_PIO_NAME
 static void sevenseg_set_hex(alt_u8 hex);
@@ -252,7 +256,7 @@ static void WSCreateTasks()
   INT8U error_code = OS_NO_ERR;
   
   /* Start LED Task. */
-  
+#ifdef LED_PIO_BASE
   error_code = OSTaskCreateExt(LED_task,
                              NULL,
                              (void *)&LEDTaskStk[TASK_STACKSIZE-1],
@@ -263,7 +267,7 @@ static void WSCreateTasks()
                              NULL,
                              0);
   alt_uCOSIIErrorHandler(error_code, 0);
-  
+#endif
   /* Start SSD Task. */
   #ifdef SEVEN_SEG_PIO_NAME
   error_code = OSTaskCreateExt(SSD_task,
@@ -336,7 +340,7 @@ void board_control_task(void *pdata)
   while(1)
   {
       board_control_mbox_contents = (void*)OSMboxPend(board_control_mbox, 0, &error_code);
-      
+
       if (board_control_mbox_contents->LED_ON)
       {
         OSTaskResume(LED_PRIO);
@@ -345,9 +349,10 @@ void board_control_task(void *pdata)
       {
         /* Suspend the task and clear the LED. */
         OSTaskSuspend(LED_PRIO);
+        #ifdef LED_PIO_BASE
         IOWR_ALTERA_AVALON_PIO_DATA( LED_PIO_BASE, 0 );
+		#endif
       }
-      
       if (board_control_mbox_contents->SSD_ON)
       {
         OSTaskResume(SSD_PRIO);
@@ -367,7 +372,7 @@ void board_control_task(void *pdata)
 	  #endif
   }
 }
-
+#ifdef LED_PIO_BASE
 void LED_task(void* pdata)
 {
   
@@ -397,6 +402,7 @@ void LED_task(void* pdata)
     OSTimeDlyHMSM(0,0,0,50);
   }
 }
+#endif
 
 #ifdef SEVEN_SEG_PIO_NAME
 static void sevenseg_set_hex(alt_u8 hex)
