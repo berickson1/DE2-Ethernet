@@ -1,0 +1,60 @@
+# Object files
+*.o
+*.ko
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+*~
+*.swp
+db
+incremental_db
+work
+quartus_output
+PLLJ_PLLSPE_INFO.txt
+*.cr.mti
+vsim.wlf
+transcript
+webtalk.log
+webtalk_impact.xml
+usage_statistics_webtalk.html
+impact.xsl
+impact_impact.xwbt
+*.bak
+*.vpp
+*.vcd
+/Quartus/.qsys_edit
+/Quartus/nios_system*
+/Quartus/output_files
+/Quartus/BioLock.jdi
+
+#Ignore Software artifacts
+*.elf
+/Software/BioLock/.settings/
+/Software/BioLock/obj/
+/Software/BioLock/BioLock.map
+/Software/BioLock/BioLock.objdump
+bin/
+gen/
+
+#Eclipse Ignores
+.metadata/
+
+#Ignore bsp project
+/Software/BioLock_bsp/*
+/Software/.metadata/*
+
+#Ignore Mac DS_Store
+.DS_Store
