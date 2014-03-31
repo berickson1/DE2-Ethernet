@@ -29,6 +29,7 @@
 
 /* MicroC/OS-II definitions */
 #include "includes.h"
+#include "dm9000a.h"
 
 #include <stdio.h>
 #include <errno.h>
@@ -210,7 +211,8 @@ OS_EVENT *board_control_mbox;
 int main (int argc, char* argv[], char* envp[])
 {
   /* Initialize the current flash block, for flash programming. */
-  
+	DM9000A_INSTANCE( DM9000A_0, dm9000a_0 );
+	DM9000A_INIT( DM9000A_0, dm9000a_0 );
   current_flash_block = -1;
   
   INT8U error_code;
