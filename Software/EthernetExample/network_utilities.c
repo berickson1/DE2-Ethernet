@@ -20,6 +20,8 @@
 #include <errno.h>
 
 /* Iniche Specific includes. */
+#define EXT_FLASH_BASE GENERIC_TRISTATE_CONTROLLER_0_BASE
+#define EXT_FLASH_NAME GENERIC_TRISTATE_CONTROLLER_0_NAME
 
 #include <alt_iniche_dev.h>
 #include "ipport.h"
