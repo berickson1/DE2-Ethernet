@@ -79,45 +79,10 @@ void die_with_error(char err_msg[DIE_WITH_ERROR_BUFFER])
 */
 alt_u32 get_serial_number (void)
 {
-    alt_u32 ser_num = 0;
-    char serial_number[9];
-    int i = 0;
-    
-    while(!ser_num)
-    {
-        printf("Please enter your 9-digit serial number. This is printed on a \n");
-        printf("label under your Nios dev. board. The first 3 digits of the \n");
-        printf("label are ASJ and the serial number follows this.\n -->");
-        
-        for(i=0; i<9; i++)
-        {
-            serial_number[i] = getchar();
-            putchar(serial_number[i]);
-            
-            /* Handle backspaces.  How civilized. */
-            if ((serial_number[i] == 0x08) && (i >= 0)) 
-            {
-                i--;
-            }
-        }
-        printf("\n");
-                
-        for(i=0; i<9; i++)
-        {
-            if (isdigit(serial_number[i]))
-            {
-                ser_num *= 10;
-                ser_num += serial_number[i] - '0';
-            }
-            else
-            {
-                ser_num = 0;
-                printf("Serial number only contains decimal digits and is non-zero\n");
-                break;
-            }
-        }
-    }
-    
+	//Generate a fake random serial number
+	printf("Generating a fake serial number\n");
+    alt_u32 ser_num = 100000000 + (rand() % 899999999);
+
     return ser_num;
 }
 
@@ -338,14 +303,8 @@ int get_mac_addr(NET net, unsigned char mac_addr[6])
 {
     error_t error = 0;
     
-    error = get_board_mac_addr(mac_addr);
-    
-    if(error)
-    {
-        /* Failed read MAC address from flash, prompt user to enter serial 
-           number to generate MAC address. */
-        error = generate_mac_addr(mac_addr);
-    }
+    error = generate_mac_addr(mac_addr);
+
     return error;
 }
 
