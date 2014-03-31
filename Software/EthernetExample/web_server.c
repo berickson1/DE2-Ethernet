@@ -29,7 +29,6 @@
 
 /* MicroC/OS-II definitions */
 #include "includes.h"
-#include "dm9000a.h"
 
 #include <stdio.h>
 #include <errno.h>
@@ -41,6 +40,7 @@
 #include <unistd.h>
 
 /* Web Server definitions */
+#include "dm9000a.h"
 #include "alt_error_handler.h"
 #include "web_server.h"
 
